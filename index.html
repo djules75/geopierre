@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GeoPierre · Deux pays, une même règle</title>
+  <meta name="description" content="Comparer deux pays côte à côte : une distance tracée sur l'un se répercute en direct sur l'autre, en kilomètres ou en proportion de la forme du pays.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='11' cy='16' r='9' fill='none' stroke='%23d9480f' stroke-width='3'/%3E%3Ccircle cx='21' cy='16' r='9' fill='none' stroke='%231864ab' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">GeoPierre</span>
+    </div>
+
+    <div class="controls">
+      <div class="segmented" role="group" aria-label="Mode de comparaison">
+        <button type="button" data-mode="abs" aria-pressed="false">Absolu</button>
+        <button type="button" data-mode="prop" aria-pressed="true" class="is-active">Proportionnel</button>
+      </div>
+      <button type="button" id="btn-ghost" class="chip" aria-pressed="true" title="Poser la silhouette de l'autre pays sur chaque carte (touche F)">Fantôme</button>
+      <button type="button" id="btn-sweep" class="chip" title="Faire tourner la cible sur 360° (touche S)">Balayage</button>
+      <button type="button" id="btn-swap" class="chip" title="Échanger les deux pays (touche X)">⇄ Échanger</button>
+      <button type="button" id="btn-help" class="chip chip-icon" aria-label="Aide" title="Aide">?</button>
+    </div>
+    <p id="mode-hint" class="mode-hint"></p>
+  </header>
+
+  <main class="panels">
+    <section class="panel panel-a" id="panel-a">
+      <div class="panel-head">
+        <label class="country-pick">
+          <span class="panel-title">France</span>
+          <select id="select-a" aria-label="Pays de gauche"></select>
+        </label>
+        <span class="center-note">centre <span class="ro-center"></span></span>
+      </div>
+      <div class="map" id="map-a"></div>
+      <div class="readout">
+        <div class="ro-km-wrap ro-block"><span class="ro-km">—</span><span class="ro-label">depuis le centre</span></div>
+        <div class="ro-frac-wrap ro-block"><span class="ro-frac">—</span><span class="ro-label">du chemin vers la frontière</span></div>
+        <div class="ro-block ro-small"><span class="ro-bearing">—</span><span class="ro-label">cap</span></div>
+        <div class="ro-block ro-small ro-wide"><span class="ro-city">—</span><span class="ro-label">destination</span></div>
+      </div>
+    </section>
+
+    <section class="panel panel-b" id="panel-b">
+      <div class="panel-head">
+        <label class="country-pick">
+          <span class="panel-title">Chine</span>
+          <select id="select-b" aria-label="Pays de droite"></select>
+        </label>
+        <span class="center-note">centre <span class="ro-center"></span></span>
+      </div>
+      <div class="map" id="map-b"></div>
+      <div class="readout">
+        <div class="ro-km-wrap ro-block"><span class="ro-km">—</span><span class="ro-label">depuis le centre</span></div>
+        <div class="ro-frac-wrap ro-block"><span class="ro-frac">—</span><span class="ro-label">du chemin vers la frontière</span></div>
+        <div class="ro-block ro-small"><span class="ro-bearing">—</span><span class="ro-label">cap</span></div>
+        <div class="ro-block ro-small ro-wide"><span class="ro-city">—</span><span class="ro-label">destination</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sentence-bar">
+    <p id="sentence">Chargement des cartes…</p>
+  </footer>
+
+  <dialog id="help" class="help">
+    <form method="dialog">
+      <h2>Comment ça marche</h2>
+      <p>Chaque carte part du <b>barycentre</b> de son pays. Déplacez le point ou cliquez sur une carte : l'autre carte répond en direct.</p>
+      <ul>
+        <li><b>Absolu</b> : même distance en kilomètres, même cap.</li>
+        <li><b>Proportionnel</b> : même <i>fraction</i> du trajet centre → frontière, dans le même cap. La frontière est mesurée dans chaque direction, la règle épouse donc la forme exacte du pays.</li>
+        <li><b>Fantôme</b> : la silhouette de l'autre pays est posée sur la carte, à taille réelle en mode absolu, déformée pour épouser le pays hôte en mode proportionnel.</li>
+        <li><b>Balayage</b> : la cible fait un tour complet et dessine, sur les deux cartes, la même « ligne d'horizon ».</li>
+      </ul>
+      <p class="keys">Clavier : <kbd>←</kbd> <kbd>→</kbd> cap · <kbd>↑</kbd> <kbd>↓</kbd> distance · <kbd>M</kbd> mode · <kbd>F</kbd> fantôme · <kbd>S</kbd> balayage · <kbd>X</kbd> échanger</p>
+      <p class="fine">Seul le territoire principal (continent + îles proches) sert aux calculs ; les territoires lointains apparaissent en filigrane. Données Natural Earth, aucune connexion requise.</p>
+      <button type="submit" class="chip">Fermer</button>
+    </form>
+  </dialog>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

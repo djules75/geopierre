@@ -1,0 +1,16 @@
+{
+  "name": "geopierre",
+  "version": "1.0.0",
+  "description": "Comparer deux pays côte à côte : distances absolues ou proportionnelles à la forme du pays.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "npx --yes serve -l 5173 .",
+    "build:data": "node scripts/build-data.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "mapshaper": "^0.6.102"
+  },
+  "license": "MIT"
+}
