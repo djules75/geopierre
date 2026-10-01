@@ -16,6 +16,16 @@ N'importe quel serveur statique convient (`python3 -m http.server`, GitHub Pages
 `index.html` directement depuis le disque ne marche pas : le navigateur bloque le chargement
 des données en `file://`.
 
+## Déployer sur Cloudflare
+
+```bash
+npx wrangler login     # une seule fois
+npx wrangler deploy    # reconstruit dist/ puis publie sur https://geopierre.<compte>.workers.dev
+```
+
+La configuration est dans `wrangler.jsonc` ; seuls les fichiers servis (page, styles, `src/`,
+`data/`, `vendor/`) sont envoyés. Le nom du Worker (`geopierre`) se change dans ce fichier.
+
 ## Utiliser
 
 - **Le point de départ est fixe** : le barycentre du territoire principal de chaque pays.

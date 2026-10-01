@@ -1,0 +1,11 @@
+{
+  // Déploiement Cloudflare Workers (static assets) : `npx wrangler deploy`
+  // Le dossier dist/ est reconstruit automatiquement avant chaque déploiement.
+  "name": "geopierre",
+  "compatibility_date": "2026-09-01",
+  "build": { "command": "npm run build" },
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash"
+  }
+}

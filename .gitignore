@@ -1,3 +1,5 @@
 node_modules/
 scripts/raw/
+dist/
+.wrangler/
 .DS_Store
